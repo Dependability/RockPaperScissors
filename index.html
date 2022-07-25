@@ -4,7 +4,68 @@
         <meta charset="utf-8">
         <title>Rock Paper Scissors</title>
         <script>
-            
+            function getComputerChoice() {
+                let randomNum = Math.floor(Math.random() * 3 + 1); 
+                switch (randomNum) {
+                    case 1:
+                        return "Scissors";
+                    case 2:
+                        return "Paper";
+                    default:
+                        return "Rock";   
+                }
+            }
+
+            function capitalize(str) {
+                return str[0].toUpperCase() + str.slice(1);
+            } 
+            function playRound(playerSelection, computerSelection) {
+                const win = `You win! ${capitalize(playerSelection)} beats ${computerSelection}`;
+                const lose = `You lost. ${computerSelection} beats ${capitalize(playerSelection)}`;
+                const draw = `Draw.`;
+                switch (playerSelection.toLowerCase()){
+                    case "rock":
+                        if (computerSelection == "Scissors") {
+                           return win; 
+                        }
+                        else if (computerSelection == "Paper"){
+                            return lose;
+                        }
+                        else {
+                            return draw;
+                        }
+                    case 'paper':
+                        if (computerSelection == "Scissors") {
+                           return lose; 
+                        }
+                        else if (computerSelection == "Paper"){
+                            return draw;
+                        }
+                        else {
+                            return win;
+                        }
+                    case 'scissors':
+                        if (computerSelection == "Scissors") {
+                           return draw; 
+                        }
+                        else if (computerSelection == "Paper"){
+                            return win;
+                        }
+                        else {
+                            return lose;
+                        }
+                    default:
+                        print("Please input valid choice.")
+                }
+                    
+            }
+            function game() {
+                for (let i = 0; i < 5; i++) {
+                    let p = prompt("What is your choice?");
+                    console.log(playRound(p, getComputerChoice()));
+                }
+            }
+            game();
         </script>
 
     </head>
