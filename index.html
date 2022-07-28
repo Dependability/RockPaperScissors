@@ -3,7 +3,19 @@
     <head>
         <meta charset="utf-8">
         <title>Rock Paper Scissors</title>
+        
+
+    </head>
+    <body>
+        <button class="Rock">Rock</button>
+        <button class="Paper">Paper</button>
+        <button class="Scissors">Scissors</button>
+        <div class="output"></div>
+        <div class="score">Player: 0, Computer: 0</div>
         <script>
+
+            let cScore = 0;
+            let pScore = 0;
             function getComputerChoice() {
                 let randomNum = Math.floor(Math.random() * 3 + 1); 
                 switch (randomNum) {
@@ -20,9 +32,9 @@
                 return str[0].toUpperCase() + str.slice(1);
             } 
             function playRound(playerSelection, computerSelection) {
-                const win = `You win! ${capitalize(playerSelection)} beats ${computerSelection}`;
-                const lose = `You lost. ${computerSelection} beats ${capitalize(playerSelection)}`;
-                const draw = `Draw.`;
+                const win = 'win';
+                const lose = 'lose';
+                const draw = 'draw';
                 switch (playerSelection.toLowerCase()){
                     case "rock":
                         if (computerSelection == "Scissors") {
@@ -65,9 +77,42 @@
                     console.log(playRound(p, getComputerChoice()));
                 }
             }
-            game();
-        </script>
+            const div = document.querySelector(".output");
+            const score = document.querySelector(".score");
+            function changeDiv(e) {
+                const playerSelection = e.target.className;
+                const computerSelection = getComputerChoice();
+                const win = `You win! ${capitalize(playerSelection)} beats ${computerSelection}`;
+                const lose = `You lost. ${computerSelection} beats ${capitalize(playerSelection)}`;
+                const draw = `Draw.`;
+                const result = playRound(playerSelection,computerSelection)
+                switch (result) {
+                    case 'win':
+                        div.textContent = win;
+                        pScore++;
+                        break;
+                    case 'lose':
+                        div.textContent = lose;
+                        cScore++;
+                        break;
+                    default:
+                        div.textContent = draw;
+                }
+                score.textContent = `Player: ${pScore}, Computer: ${cScore}`
+                if (cScore >= 5 && pScore >= 5) {
+                    score.textContent = "Complete Draw."
+                } else if (cScore == 5) {
+                    score.textContent = "Computer Wins."
+                } else if (pScore == 5) {
+                    score.textContent = "Player Wins!"
+                }
 
-    </head>
-    <body></body>
+                
+            }
+            const buttons = document.querySelectorAll('button');
+            buttons.forEach((button) => {
+                button.addEventListener('click', changeDiv);
+            });
+        </script>
+    </body>
 </html>
