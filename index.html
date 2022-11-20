@@ -3,15 +3,48 @@
     <head>
         <meta charset="utf-8">
         <title>Rock Paper Scissors</title>
-        
+        <link rel="stylesheet" href="style.css">
 
     </head>
     <body>
-        <button class="Rock">Rock</button>
-        <button class="Paper">Paper</button>
-        <button class="Scissors">Scissors</button>
+        <header>
+            <h1>Rock Paper Scissors</h1>
+        </header>
+
+        <div class="display">
+            <div class="player-choice choice">
+                <div class="main">
+                <img src="images/none.svg" href="nothing selected">
+                <p>Nothing</p>
+                </div>
+                <p class="score">Player: 0</p>
+            </div>
+        vs.
+            <div class="player2-choice choice">
+                <div class="main">
+                    <img src="images/none.svg" href="nothing selected">
+                    <p>Nothing</p>
+                    </div>
+                    <p class="score">Computer: 0</p>
+            </div>
+        
+        </div>
         <div class="output"></div>
-        <div class="score">Player: 0, Computer: 0</div>
+        <div class="inputs">
+            <button class="Rock"><img src="images/rock.png" alt="Rock" class="Rock"></button>
+            <button class="Paper"><img src="images/paper.png" alt="Paper" class="Paper"></button>
+            <button class="Scissors"><img src="images/scissors.png" alt="Scissors" class="Scissors"></button>
+        </div>
+        
+        <div class="overlay">
+            <div class="middle">
+            <div class="text">Sample Text</div>
+            <button>Play Again</button>
+        </div>
+        </div>
+        
+
+        
         <script>
 
             let cScore = 0;
@@ -78,14 +111,26 @@
                 }
             }
             const div = document.querySelector(".output");
-            const score = document.querySelector(".score");
+            const pReadScore = document.querySelector(".player-choice .score");
+            const cReadScore = document.querySelector('.player2-choice .score');
+            const overlay = document.querySelector('.overlay');
+            const pImage = document.querySelector('.player-choice img');
+            const cImage = document.querySelector('.player2-choice img');
+            const pText =  document.querySelector('.player-choice p');
+            const cText =  document.querySelector('.player2-choice p');
             function changeDiv(e) {
+                console.log(e)
                 const playerSelection = e.target.className;
                 const computerSelection = getComputerChoice();
                 const win = `You win! ${capitalize(playerSelection)} beats ${computerSelection}`;
                 const lose = `You lost. ${computerSelection} beats ${capitalize(playerSelection)}`;
                 const draw = `Draw.`;
                 const result = playRound(playerSelection,computerSelection)
+                pImage.setAttribute('src', `images/${playerSelection.toLowerCase()}.png`)
+                cImage.setAttribute('src', `images/${computerSelection.toLowerCase()}.png`)
+                pText.textContent = capitalize(playerSelection);
+                cText.textContent = capitalize(computerSelection);
+
                 switch (result) {
                     case 'win':
                         div.textContent = win;
@@ -98,21 +143,40 @@
                     default:
                         div.textContent = draw;
                 }
-                score.textContent = `Player: ${pScore}, Computer: ${cScore}`
+                pReadScore.textContent = `Player: ${pScore}`
+                cReadScore.textContent = `Computer: ${cScore}`
+                const score = document.querySelector('.overlay .text')
                 if (cScore >= 5 && pScore >= 5) {
                     score.textContent = "Complete Draw."
+                    overlay.classList.toggle('visible');
                 } else if (cScore == 5) {
                     score.textContent = "Computer Wins."
+                    overlay.classList.toggle('visible');
                 } else if (pScore == 5) {
                     score.textContent = "Player Wins!"
+                    overlay.classList.toggle('visible');
                 }
 
                 
             }
-            const buttons = document.querySelectorAll('button');
+            const buttons = document.querySelectorAll('.inputs button');
             buttons.forEach((button) => {
                 button.addEventListener('click', changeDiv);
             });
+
+
+
+            const playAgain = document.querySelector('.overlay button');
+            playAgain.addEventListener('click', (e)=> {
+                    overlay.classList.toggle('visible');
+                    pScore = 0;
+                    cScore = 0;
+                    pReadScore.textContent = `Player: ${pScore}`;
+                    cReadScore.textContent = `Computer: ${cScore}`;
+                    div.textContent = '';
+                    pImage.setAttribute('src', 'images/none.svg');
+                    cImage.setAttribute('src', 'images/none.svg');
+            })
         </script>
     </body>
 </html>
