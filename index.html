@@ -3,8 +3,9 @@
     <head>
         <meta charset="utf-8">
         <title>Rock Paper Scissors</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Oxygen&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="style.css">
-
+        <style> @import url('https://fonts.googleapis.com/css2?family=Oxygen&display=swap'); </style>
     </head>
     <body>
         <header>
@@ -153,7 +154,7 @@
                     score.textContent = "Computer Wins."
                     overlay.classList.toggle('visible');
                 } else if (pScore == 5) {
-                    score.textContent = "Player Wins!"
+                    score.textContent = "You win!"
                     overlay.classList.toggle('visible');
                 }
 
