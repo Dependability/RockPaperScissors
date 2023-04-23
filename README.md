@@ -1,4 +1,4 @@
 # RockPaperScissors
 This uses JS, CSS, and HTML.
 
-[Live Demo] :point_left:
+[Live Demo](https://dependability.github.io/RockPaperScissors/) :point_left:
